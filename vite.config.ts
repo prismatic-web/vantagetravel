@@ -84,15 +84,9 @@ function checkRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
   return { allowed: true }
 }
 
-/** Clean up expired rate limit entries every 5 minutes */
-setInterval(() => {
-  const now = Date.now()
-  for (const [ip, entry] of rateLimitStore) {
-    if (now > entry.resetTime) {
-      rateLimitStore.delete(ip)
-    }
-  }
-}, 5 * 60 * 1000)
+// Note: Cleanup interval removed to prevent build hang
+// In production, rate limit store resets on each deploy (stateless)
+// For persistent rate limiting, use Redis or external store
 
 /** Input validation for API requests */
 function validateApiInput(url: string): { valid: boolean; error?: string } {
@@ -310,14 +304,14 @@ function amadeusApiProxyPlugin() {
 }
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: "./",
   plugins: [
     securityPlugin(), // Must be first to apply headers to all responses
-    inspectAttr(),
+    mode === 'development' ? inspectAttr() : null, // Dev-only plugin
     react(),
     amadeusApiProxyPlugin(),
-  ],
+  ].filter(Boolean), // Remove null plugins
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
