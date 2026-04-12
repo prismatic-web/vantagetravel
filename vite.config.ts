@@ -304,14 +304,17 @@ function amadeusApiProxyPlugin() {
 }
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => ({
+// Use simple object format so Wrangler can parse plugins array
+const isDev = process.env.NODE_ENV !== 'production'
+
+export default defineConfig({
   base: "./",
   plugins: [
     securityPlugin(), // Must be first to apply headers to all responses
-    mode === 'development' ? inspectAttr() : null, // Dev-only plugin
+    ...(isDev ? [inspectAttr()] : []), // Dev-only plugin
     react(),
     amadeusApiProxyPlugin(),
-  ].filter(Boolean), // Remove null plugins
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -349,4 +352,4 @@ export default defineConfig(({ mode }) => ({
     strictPort: true,
     host: "localhost",
   },
-}))
+})
