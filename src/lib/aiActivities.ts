@@ -44,23 +44,23 @@ const CITY_LANDMARKS: Record<string, string[]> = {
 }
 
 // Activity templates by travel style
-const ACTIVITY_TEMPLATES: Record<string, Array<(city: string, country: string, budget: number) => Partial<Activity>>> = {
+const ACTIVITY_TEMPLATES: Record<string, Array<(city: string, _country: string, budget: number) => Partial<Activity>>> = {
   culture: [
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: `${city} Historic Walking Tour`,
       description: `Explore the rich history and architecture of ${city} with a guided walking tour through historic neighborhoods. Discover hidden courtyards, ancient monuments, and hear fascinating stories from local historians.`,
       cost: Math.round(budget * 0.15),
       duration: '3 hours',
       category: 'History',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Museum of Fine Arts Visit',
       description: `Spend the afternoon at ${city}'s premier art museum, featuring collections spanning centuries of artistic achievement. Audio guides available in multiple languages.`,
       cost: Math.round(budget * 0.12),
       duration: '2.5 hours',
       category: 'Museum',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Local Heritage Site Exploration',
       description: `Visit one of ${city}'s UNESCO World Heritage sites or historic monuments. Marvel at the architecture and learn about the cultural significance of these preserved treasures.`,
       cost: Math.round(budget * 0.1),
@@ -74,37 +74,37 @@ const ACTIVITY_TEMPLATES: Record<string, Array<(city: string, country: string, b
       duration: '2 hours',
       category: 'Performance',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Old Town Architecture Tour',
       description: `Wander through ${city}'s charming old town, admiring centuries-old buildings, cobblestone streets, and architectural gems from different eras.`,
       cost: Math.round(budget * 0.05),
       duration: '2 hours',
       category: 'Walking',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Cathedral & Religious Sites Visit',
       description: `Tour ${city}'s magnificent cathedrals, temples, or mosques. Learn about religious history, admire stunning interiors, and enjoy peaceful moments of reflection.`,
       cost: Math.round(budget * 0.08),
       duration: '1.5 hours',
       category: 'Spiritual',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Historical Monument Photography',
       description: `Capture stunning photos of ${city}'s most iconic monuments and landmarks. Early morning or golden hour visit for the best lighting and fewer crowds.`,
       cost: Math.round(budget * 0.06),
       duration: '2 hours',
       category: 'Photography',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Cultural History Lecture',
       description: `Attend an engaging lecture or presentation about ${city}'s unique history and cultural evolution at a local university or cultural center.`,
       cost: Math.round(budget * 0.1),
-      duration: '1.5 hours',
+      duration: '2 hours',
       category: 'Education',
     }),
   ],
   foodie: [
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Gourmet Food Tour',
       description: `Embark on a culinary journey through ${city}'s best neighborhoods. Sample local specialties, street food, and hidden gems with an expert food guide.`,
       cost: Math.round(budget * 0.4),
@@ -118,79 +118,79 @@ const ACTIVITY_TEMPLATES: Record<string, Array<(city: string, country: string, b
       duration: '4 hours',
       category: 'Cooking',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Fine Dining Experience',
       description: `Indulge in an exceptional dinner at one of ${city}'s top-rated restaurants. Experience innovative cuisine that blends local flavors with modern techniques.`,
       cost: Math.round(budget * 0.6),
       duration: '2.5 hours',
       category: 'Fine Dining',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Local Market Food Crawl',
       description: `Explore ${city}'s bustling food markets, tasting fresh produce, artisanal cheeses, cured meats, and local delicacies. A feast for all senses!`,
       cost: Math.round(budget * 0.2),
       duration: '2 hours',
       category: 'Market',
     }),
-    (city, country, budget) => ({
+    (_city, _country, budget) => ({
       name: 'Wine & Cheese Tasting',
       description: `Sample carefully curated selections of regional wines paired with artisanal cheeses. Learn about terroir, production methods, and perfect pairings.`,
       cost: Math.round(budget * 0.3),
       duration: '2 hours',
       category: 'Tasting',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Street Food Adventure',
       description: `Discover ${city}'s best street food vendors and food trucks. Try local favorites and hidden specialties that locals love.`,
       cost: Math.round(budget * 0.15),
       duration: '2 hours',
       category: 'Street Food',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Chocolate & Pastry Tour',
       description: `Savor handcrafted chocolates, pastries, and desserts from ${city}'s finest patisseries and chocolatiers. A sweet journey through culinary artistry.`,
       cost: Math.round(budget * 0.18),
       duration: '2 hours',
       category: 'Dessert',
     }),
-    (city, country, budget) => ({
+    (_city, country, budget) => ({
       name: 'Farm-to-Table Dinner',
       description: `Enjoy a sustainable dining experience featuring locally-sourced ingredients. Meet the producers and learn about ${country}'s culinary traditions.`,
       cost: Math.round(budget * 0.5),
-      duration: '3 hours',
+      duration: '2.5 hours',
       category: 'Sustainable Dining',
     }),
   ],
   adventure: [
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Scenic Hiking Expedition',
       description: `Trek through stunning natural landscapes surrounding ${city}. Experience breathtaking views, diverse flora and fauna, and the thrill of outdoor adventure.`,
       cost: Math.round(budget * 0.2),
       duration: '5 hours',
       category: 'Hiking',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Adrenaline Activity',
       description: `Get your heart racing with exciting activities like zip-lining, rock climbing, or water sports available near ${city}. Professional guides ensure safety.`,
       cost: Math.round(budget * 0.4),
       duration: '3 hours',
       category: 'Adventure',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Sunrise Summit Trek',
       description: `Wake early for an unforgettable sunrise hike to ${city}'s best viewpoint. Watch the city awaken as the sun paints the sky in brilliant colors.`,
       cost: Math.round(budget * 0.15),
       duration: '4 hours',
       category: 'Nature',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Kayaking or Water Adventure',
       description: `Explore ${city}'s waterways by kayak, paddleboard, or boat. Discover hidden coves, waterfront neighborhoods, and marine life from a unique perspective.`,
       cost: Math.round(budget * 0.25),
       duration: '2.5 hours',
       category: 'Water Sports',
     }),
-    (city, country, budget) => ({
+    (city, _country, budget) => ({
       name: 'Mountain Biking Trail',
       description: `Ride exciting trails through forests and hills near ${city}. Suitable for various skill levels with bikes and safety gear provided.`,
       cost: Math.round(budget * 0.3),
