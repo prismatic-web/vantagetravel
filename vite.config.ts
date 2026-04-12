@@ -349,4 +349,4 @@ export default defineConfig(({ mode }) => ({
     strictPort: true,
     host: "localhost",
   },
-})
+}))
