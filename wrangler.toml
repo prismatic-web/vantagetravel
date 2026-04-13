@@ -1,0 +1,27 @@
+# Cloudflare Worker Configuration
+# This file tells Wrangler how to deploy your backend
+
+name = "vantagetravel-api"
+main = "backend/index.ts"
+compatibility_date = "2026-04-13"
+compatibility_flags = ["nodejs_compat"]
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "vantagetravel_db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+# Environment variables (secrets)
+# Set these with: wrangler secret put NAME
+[vars]
+APP_URL = "https://vantagetravel.pages.dev"
+
+# Secrets to set (DO NOT put real values here!)
+# Run these commands after deployment:
+# wrangler secret put GOOGLE_CLIENT_ID
+# wrangler secret put GOOGLE_CLIENT_SECRET  
+# wrangler secret put JWT_SECRET
+# wrangler secret put STRIPE_SECRET_KEY
+# wrangler secret put STRIPE_WEBHOOK_SECRET
+# wrangler secret put STRIPE_PRICE_ID
