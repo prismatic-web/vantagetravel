@@ -4,6 +4,8 @@ import react from "@vitejs/plugin-react"
 import { defineConfig, loadEnv } from "vite"
 import { inspectAttr } from "kimi-plugin-inspect-react"
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 // ============================================================================
 // SECURITY CONFIGURATION
 // OWASP-compliant security headers and rate limiting
@@ -309,12 +311,9 @@ const isDev = process.env.NODE_ENV !== 'production'
 
 export default defineConfig({
   base: "./",
-  plugins: [
-    securityPlugin(), // Must be first to apply headers to all responses
-    ...(isDev ? [inspectAttr()] : []), // Dev-only plugin
-    react(),
-    amadeusApiProxyPlugin(),
-  ],
+  plugins: [// Must be first to apply headers to all responses
+  securityPlugin(), // Dev-only plugin
+  ...(isDev ? [inspectAttr()] : []), react(), amadeusApiProxyPlugin(), cloudflare()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
